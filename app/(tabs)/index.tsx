@@ -6,8 +6,9 @@ export default function App(){
     return(
     <View style={styles.container}> 
      <Text style={styles.text}>SkinQuest</Text>
-      <TouchableOpacity>
-        <Text style={styles.text}>Lets begin your journey!</Text>
+      <Text style={styles.textDesc}>Your Skincare journey reimagined</Text>
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>Lets begin your journey!</Text>
         </TouchableOpacity>
     </View>
     );
@@ -21,8 +22,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#d2b48c"
   },
-  text:{
-    fontSize : 32,
-    color: "#b0e0e6"
+  buttonText:{
+    fontSize : 28,
+    color: "#b0e0e6",
+    
   },
+  button:{
+    backgroundColor: "#e9967a",
+    padding: 15,
+    borderRadius: 27,
+
+  },
+  text:{
+    fontSize:59,
+    fontWeight: "bold",
+    color: "#b0e0e6",
+    marginBottom: 55,
+    
+  },
+  textDesc:{
+    fontSize:20,
+    color: "#b8860b",
+    marginBottom:40,
+  }
 });
