@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 export default function Concerns() {
   
@@ -16,7 +16,7 @@ export default function Concerns() {
   function toggleConcers(id){
     setProblems(problems.map((item) => {
       if (item.id === id){
-        return {...item, selcted: !item.selected};
+        return {...item, selected: !item.selected};
       } else {
         return item;
       }
@@ -28,8 +28,17 @@ export default function Concerns() {
 
     <View style={{ backgroundColor:"#d2b48c", flex: 1, alignItems: "center", justifyContent: "center" }}>
        <Text style={{ fontSize: 24, color: "#b0e0e6", fontWeight:"bold" }}>Select what you want to defeat!</Text>
+       
        {problems.map((item) => (
-        <Text key={item.id} style={{fontSize: 20, color: "black", padding: 10}}>{item.text}</Text>
+        <TouchableOpacity 
+        key={item.id} 
+        onPress={() => toggleConcers(item.id)}
+        style = {{backgroundColor: item.selected ? "green" : "transparent" }}
+        >
+        <Text style={{ fontSize: 25, color: "black", padding: 10}}>
+        {item.text}
+        </Text>
+        </TouchableOpacity>
        ))}
       </View>
   );
