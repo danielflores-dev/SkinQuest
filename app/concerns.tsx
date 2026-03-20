@@ -13,15 +13,25 @@ export default function Concerns() {
     { id: 6, text: `Oillness`, selected: false},
   ]);
 
-  function toggleConcers(id){
-    setProblems(problems.map((item) => {
+  function toggleConcerns(id){
+    setProblems((prev)=>{
+    const selectedCount = prev.filter((item)=>item.selected).length;
+    const tappedItem = prev.find((item)=>item.id === id);
+
+    if (!tappedItem) return prev;
+
+    if (selectedCount >= 3 && !tappedItem.selected){
+      return prev;
+    }
+
+    return prev.map((item)=>{
       if (item.id === id){
         return {...item, selected: !item.selected};
       } else {
         return item;
       }
     
-  }));
+  })});
   }
 
   return (
@@ -32,8 +42,9 @@ export default function Concerns() {
        {problems.map((item) => (
         <TouchableOpacity 
         key={item.id} 
-        onPress={() => toggleConcers(item.id)}
-        style = {{backgroundColor: item.selected ? "green" : "transparent" }}
+        onPress={() => toggleConcerns(item.id)}
+        style = {{backgroundColor: item.selected ? "green" : "transparent", padding: 10,  margin: 5, borderRadius: 10, borderWidth: 1,
+         }}
         >
         <Text style={{ fontSize: 25, color: "black", padding: 10}}>
         {item.text}
@@ -42,4 +53,5 @@ export default function Concerns() {
        ))}
       </View>
   );
+  
 }
