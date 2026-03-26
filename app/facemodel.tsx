@@ -7,7 +7,7 @@ export default function FaceModel() {
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#d2b48c" }}>
-      <Text style={{ fontSize: 24, color: "#b0e0e6", marginBottom: 20 }}>Your Enemies</Text>
+      <Text style={{ fontSize: 24, color: "#b0e0e6", marginBottom: 20 , fontWeight: "bold"}}>Your Enemies</Text>
       
       
       
@@ -53,6 +53,9 @@ backgroundColor: "#D4736E",
   marginTop: 50,
 
 }}></View>
+
+{concerns.includes("Acne") && (
+<>
   <View style={{
     position: "absolute",
     top: 50,
@@ -86,8 +89,70 @@ height: 12,
 borderRadius: 6,
 backgroundColor: "red",
 
+}}></View> 
+</>
+)}
+{concerns.includes("Blackheads") && (
+<>
+<View style={{
+position: "absolute",
+top: 140,
+right: 120,
+width: 7,
+height: 7,
+borderRadius: 3,
+backgroundColor: "black",
 }}></View>
-  </View>
+
+<View style={{
+position: "absolute",
+top: 125,
+right: 110,
+width: 7,
+height: 7,
+borderRadius: 3,
+backgroundColor: "black",
+}}></View>
+
+<View style={{
+position: "absolute",
+top: 125,
+right: 130,
+width: 7,
+height: 7,
+borderRadius: 3,
+backgroundColor: "black",
+}}></View>
+</>
+)}
+
+{concerns.includes("Wrinkles") && (
+<>
+<View style={{
+position: "absolute",
+bottom: 140,
+left: 50,
+alignSelf: "center",
+width: 35,
+height:7,
+borderRadius: 6,
+backgroundColor: "#bc8f8f"
+}}></View>
+
+<View style={{
+position: "absolute",
+bottom: 140,
+right: 50,
+alignSelf: "center",
+width: 35,
+height:7,
+borderRadius: 6,
+backgroundColor: "#bc8f8f"
+}}></View>
+</>
+)}
+  
+</View>
       
       
       {concerns.map((name, index) => (
