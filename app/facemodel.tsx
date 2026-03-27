@@ -1,7 +1,8 @@
-import { useGlobalSearchParams } from "expo-router";
-import { Text, View } from "react-native";
+import { useGlobalSearchParams, useRouter } from "expo-router";
+import { Text, TouchableOpacity, View } from "react-native";
 
 export default function FaceModel() {
+  const router = useRouter();
   const params = useGlobalSearchParams();
   const concerns = params.concerns ? String(params.concerns).split(",") : [];
 
@@ -234,6 +235,13 @@ transform:[{ rotate: `160deg`}]
           {name}
         </Text>
       ))}
+
+      <TouchableOpacity
+  style={{ backgroundColor: "#e9967a", padding: 15, borderRadius: 27, marginTop: 20 }}
+  onPress={() => router.push("./dailylog")}
+>
+  <Text style={{ fontSize: 24, color: "#b0e0e6" }}>Log Today's Routine</Text>
+</TouchableOpacity>
     </View>
   );
    
