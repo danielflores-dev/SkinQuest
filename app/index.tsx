@@ -9,7 +9,7 @@ export default function App(){
      <Text style={styles.text}>SkinQuest</Text>
       <Text style={styles.textDesc}>Your Skincare journey reimagined</Text>
       <TouchableOpacity style={styles.button} 
-      onPress={() => router.push("/concerns")}>
+      onPress={() => router.push("./concerns")}>
         <Text style={styles.buttonText}>Lets begin your journey!</Text>
         </TouchableOpacity>
     </View>

@@ -8,7 +8,7 @@ export default function DailyLog(){
 
         {id: 10, text: "Cleanser", selected: false},
         {id: 11, text: "Moisturizer", selected: false},
-        {id: 12, text: "SunScreen", selected: false},
+        {id: 12, text: "Sunscreen", selected: false},
     ]);
 function toggleDailyLog(id){
     setproducts((prev)=>{
@@ -33,11 +33,48 @@ function toggleDailyLog(id){
      }]}    
     >
     <Text style={{ fontSize: 20, color: "gold", padding: 5}}>
-            {item.text}
+           {item.selected ? "✅" : ""}{item.text}
             </Text>
     </TouchableOpacity>
 
     ))}
+
+    <TouchableOpacity
+    style={{
+      opacity: products.filter((item) => item.selected).length > 0 ? 1 : 0.3,
+      marginTop:10,
+      padding:15,
+      borderRadius:27,
+      backgroundColor: "#e9967a",
+      }}
+      onPress={() =>{
+
+        const selected = products
+        .filter((item) => item.selected)
+        .map((item) => item.text)
+        .join(",");
+
+        if (selected.length > 0){
+          router.push({
+            pathname: "./facemodel",
+            params: {prodcuts : selected}
+          })
+        }
+
+      }}
+      
+      >
+
+
+
+    <Text style={{
+      fontSize: 24, 
+      color: "#b0e0e6", 
+      fontWeight:"bold",
+    }}>Log Products</Text>
+
+    </TouchableOpacity>
+    
 
     </View>
 )}
