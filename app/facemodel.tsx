@@ -1,9 +1,12 @@
 import { useGlobalSearchParams, useRouter } from "expo-router";
+import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 export default function FaceModel() {
-  const router = useRouter();
   const params = useGlobalSearchParams();
+  const damage = params.damage ? Number(params.damage) :0;
+  const [enemyHP, setEnemyHP] = useState(100 - damage);
+  const router = useRouter();
   const concerns = params.concerns ? String(params.concerns).split(",") : [];
 
   return (
@@ -43,6 +46,7 @@ export default function FaceModel() {
     <View style={{ backgroundColor: "#3B1F0B", width: 15, height: 15, borderRadius: 8 }}></View>
 </View>
   
+ 
 </View>
 
 <View style={{
@@ -228,17 +232,20 @@ transform:[{ rotate: `160deg`}]
 )}
 
 </View>
-      
+      <Text style={{ color: "#f08080", fontSize: 24, fontWeight: "bold", marginBottom: 10, justifyContent: "center",}}> Enemy HP: {enemyHP}/100</Text> 
       
       {concerns.map((name, index) => (
-        <Text key={index} style={{ fontSize: 20, color: "red", padding: 10, fontWeight: "bold" }}>
+        <Text key={index} style={{ fontSize: 20, color: "#f08080", padding: 10, fontWeight: "bold" }}>
           {name}
         </Text>
       ))}
 
       <TouchableOpacity
   style={{ backgroundColor: "#e9967a", padding: 15, borderRadius: 27, marginTop: 20 }}
-  onPress={() => router.push("./dailylog")}
+  onPress={() => router.push({
+      pathname: "./dailylog",
+      params: { concerns: String(params.concerns) }
+  })}
 >
   <Text style={{ fontSize: 24, color: "#b0e0e6" }}>Log Today's Routine</Text>
 </TouchableOpacity>

@@ -1,9 +1,10 @@
-import { useRouter } from "expo-router";
+import { useGlobalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function DailyLog(){
     const router = useRouter();
+    const { concerns } = useGlobalSearchParams();
     const [products, setproducts] = useState([
 
         {id: 10, text: "Cleanser", selected: false},
@@ -48,17 +49,17 @@ function toggleDailyLog(id){
       backgroundColor: "#e9967a",
       }}
       onPress={() =>{
+ const completed = products.filter((item) => item.selected).length;
+        
 
-        const selected = products
-        .filter((item) => item.selected)
-        .map((item) => item.text)
-        .join(",");
-
-        if (selected.length > 0){
+        if (completed> 0){
           router.push({
             pathname: "./facemodel",
-            params: {prodcuts : selected}
-          })
+            params: {
+              concerns : String(concerns),
+              damage: String(completed * 10)
+            }
+          });
         }
 
       }}
