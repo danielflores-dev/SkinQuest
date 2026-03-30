@@ -65,10 +65,12 @@ backgroundColor: "#D4736E",
     position: "absolute",
     top: 50,
     left: 100,
-    width: 12,
-    height: 12,
-    borderRadius: 6,
+    width: 12 * (enemyHP/100),
+    height: 12 * (enemyHP/100),
+    borderRadius: 6 * (enemyHP/100),
     backgroundColor: "red",
+    opacity: enemyHP/100,
+
 
 
   }}>
@@ -77,10 +79,11 @@ backgroundColor: "#D4736E",
   position: "absolute",
   bottom: 60,
   right: 80,
-  width: 12,
-  height: 12,
-  borderRadius: 6,
+  width: 12 * (enemyHP/100),
+  height: 12 * (enemyHP/100),
+  borderRadius: 6 * (enemyHP/100),
   backgroundColor: "red",
+  opacity: enemyHP/100,
 
 }}>
 </View>
@@ -89,10 +92,11 @@ backgroundColor: "#D4736E",
 position: "absolute",
 bottom: 80,
 left: 70,
-width: 12,
-height: 12,
-borderRadius: 6,
+width: 12 * (enemyHP/100),
+height: 12 * (enemyHP/100),
+borderRadius: 6 * (enemyHP/100),
 backgroundColor: "red",
+opacity: enemyHP/100,
 
 }}></View> 
 </>
@@ -107,6 +111,7 @@ width: 7,
 height: 7,
 borderRadius: 3,
 backgroundColor: "black",
+opacity: enemyHP/100,
 }}></View>
 
 <View style={{
@@ -117,6 +122,7 @@ width: 7,
 height: 7,
 borderRadius: 3,
 backgroundColor: "black",
+opacity: enemyHP/100,
 }}></View>
 
 <View style={{
@@ -127,6 +133,7 @@ width: 7,
 height: 7,
 borderRadius: 3,
 backgroundColor: "black",
+opacity: enemyHP/100,
 }}></View>
 </>
 )}
@@ -142,6 +149,7 @@ width: 35,
 height:7,
 borderRadius: 6,
 backgroundColor: "#bc8f8f",
+opacity: enemyHP/100,
 transform:[{ rotate:`330deg`}],
 }}></View>
 
@@ -155,6 +163,7 @@ height:7,
 borderRadius: 6,
 backgroundColor: "#bc8f8f",
 transform:[{ rotate:`20deg`}],
+opacity: enemyHP/100,
 }}></View>
 </>
 )}
@@ -169,6 +178,7 @@ width: 50,
 height: 50,
 borderRadius: 70,
 backgroundColor: "#cd5c5c",
+opacity: enemyHP/100,
 }}></View>
 <View style={{
 position: "absolute",
@@ -178,6 +188,7 @@ width: 50,
 height: 50,
 borderRadius: 70,
 backgroundColor: "#cd5c5c",
+opacity: enemyHP/100,
 }}></View>
 </>
 )}
@@ -192,6 +203,7 @@ width: 45,
 height: 10,
 borderRadius: 25,
 backgroundColor: "grey",
+opacity: enemyHP/100,
 }}></View>
 <View style={{
 position: "absolute",
@@ -201,6 +213,7 @@ width: 45,
 height: 10,
 borderRadius: 25,
 backgroundColor: "grey",
+opacity: enemyHP/100,
 }}></View>
 </>
 )}
@@ -215,6 +228,7 @@ width:50,
 height: 15,
 borderRadius: 25,
 backgroundColor: "#daa520",
+opacity: enemyHP/100,
 transform:[{ rotate: `200deg`}]
 }}></View>
 <View style={{
@@ -225,6 +239,7 @@ width:50,
 height: 15,
 borderRadius: 25,
 backgroundColor: "#daa520",
+opacity: enemyHP/100,
 transform:[{ rotate: `160deg`}]
 }}></View>
 

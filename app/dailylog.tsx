@@ -57,7 +57,7 @@ function toggleDailyLog(id){
             pathname: "./facemodel",
             params: {
               concerns : String(concerns),
-              damage: String(completed * 10)
+              damage: String(completed * 15)
             }
           });
         }
