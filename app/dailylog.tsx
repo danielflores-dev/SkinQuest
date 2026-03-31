@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function DailyLog(){
     const router = useRouter();
-    const { concerns } = useGlobalSearchParams();
+    const { concerns, streak } = useGlobalSearchParams();
     const [products, setproducts] = useState([
 
         {id: 10, text: "Cleanser", selected: false},
@@ -57,7 +57,8 @@ function toggleDailyLog(id){
             pathname: "./facemodel",
             params: {
               concerns : String(concerns),
-              damage: String(completed * 15)
+              damage: String(completed * 15),
+              streak: String(Number(streak) +1),
             }
           });
         }

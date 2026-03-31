@@ -8,6 +8,7 @@ export default function FaceModel() {
   const [enemyHP, setEnemyHP] = useState(100 - damage);
   const router = useRouter();
   const concerns = params.concerns ? String(params.concerns).split(",") : [];
+  const streak = params.streak ? Number(params.streak) :0;
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#d2b48c" }}>
@@ -270,11 +271,23 @@ transform:[{ rotate: `160deg`}]
   style={{ backgroundColor: "#e9967a", padding: 15, borderRadius: 27, marginTop: 20 }}
   onPress={() => router.push({
       pathname: "./dailylog",
-      params: { concerns: String(params.concerns) }
+      params: { 
+        concerns: String(params.concerns) ,
+        streak : String(streak),
+      }
   })}
 >
   <Text style={{ fontSize: 24, color: "#b0e0e6" }}>Log Today's Routine</Text>
 </TouchableOpacity>
+    
+    
+ <Text style={{
+position: "absolute",
+bottom: 175, 
+ fontSize: 20,
+  color: "white",
+ }}>Streak: {streak}</Text> 
+
     </View>
   );
    
