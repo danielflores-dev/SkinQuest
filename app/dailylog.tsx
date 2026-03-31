@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function DailyLog(){
     const router = useRouter();
-    const { concerns, streak, currentHP } = useGlobalSearchParams();
+    const { concerns, streak, currentHP, stage } = useGlobalSearchParams();
     const [products, setproducts] = useState([
 
         {id: 10, text: "Cleanser", selected: false},
@@ -59,6 +59,8 @@ function toggleDailyLog(id){
               concerns : String(concerns),
               hp: String(Math.max(0, Number(currentHP) - (completed * 15))),
               streak: String(Number(streak) +1),
+              stage: String(Number(stage) +1)
+              
             }
           });
         }

@@ -5,11 +5,13 @@ import { Text, TouchableOpacity, View } from "react-native";
 export default function FaceModel() {
   const params = useGlobalSearchParams();
   const damage = params.damage ? Number(params.damage) :0;
-  const hp = params.hp ? Number(params.hp) : 100;
+   const stage = params.stage ? Number(params.stage) :1;
+  const hp = params.hp ? Number(params.hp) : 100 + (stage -1) * 50;
   const [enemyHP, setEnemyHP] = useState(hp);
   const router = useRouter();
   const concerns = params.concerns ? String(params.concerns).split(",") : [];
   const streak = params.streak ? Number(params.streak) :0;
+ 
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#d2b48c" }}>
@@ -250,16 +252,16 @@ transform:[{ rotate: `160deg`}]
 
 <View style={{
   position: "absolute",
-  top: 170,
-  width: 200,
+  top: 165,
+  width: 250,
   height: 40,
   borderRadius: 30,
   backgroundColor: "grey",
 }}>
 <View style={{
 position: "absolute",
-  top: 0,
-  width: enemyHP * 2,
+  top:0,
+  width: enemyHP * 2.5,
   height: 40,
   borderRadius: 30,
   backgroundColor: enemyHP > 60 ? "green" : enemyHP > 30 ? "yellow" : "red",
@@ -275,12 +277,12 @@ position: "absolute",
 
         <Text style ={{
           position: "absolute",
-          top : 125,
+          top : 65,
           fontWeight: "bold",
           fontSize: 45,
           color: "gold",
 
-        }}>Defeated, Congrats</Text>
+        }}>Defeated Stage {stage +1}!</Text>
       )}
       {concerns.map((name, index) => (
         <Text key={index} style={{ fontSize: 20, color: "#f08080", padding: 10, fontWeight: "bold" }}>
@@ -310,6 +312,36 @@ bottom: 175,
   color: "white",
  }}>Streak: {streak}</Text> 
 
+   
+{enemyHP <=0 && (   
+<TouchableOpacity style={{
+backgroundColor: "#e9967a", 
+padding: 15,
+borderRadius: 27, 
+position : "absolute", 
+bottom : 100
+   
+}}
+onPress={() => router.push({
+  pathname: "./facemodel",
+      params: { 
+        concerns: String(params.concerns) ,
+        streak : String(streak),
+        stage: String(Number(stage) +1)
+      }
+
+}
+)}
+
+><Text style={{
+fontSize: 24,
+color: "gold"
+
+}}
+>Continue to Stage {stage + 1}!</Text>
+</TouchableOpacity>
+)}
+   
     </View>
   );
    
