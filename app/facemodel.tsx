@@ -1,6 +1,6 @@
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
 export default function FaceModel() {
   const params = useGlobalSearchParams();
@@ -20,49 +20,12 @@ export default function FaceModel() {
       
       
       
-      <View style={{
-    backgroundColor: "#F1C27D",
-    height: 300,
-    width: 250,
-    borderRadius:125,
-     }}>
-    
-    <View style = {{flexDirection: "row", justifyContent: "center", gap: 40, marginTop: 100}}> 
-    <View style={{ 
-  backgroundColor: "white",
-  width: 30,
-  height:30,
-  borderRadius: 50,
-  alignItems: "center",
-  justifyContent: "center",
-    }}> 
-      <View style={{ backgroundColor: "#3B1F0B", width: 15, height: 15, borderRadius: 8 }}></View>
-    </View>
-
-    <View style={{
-  backgroundColor:"white",
-  width:30,
-  height:30,
-  borderRadius:50,
-  alignItems:"center",
-  justifyContent:"center",
-
-}}>
-    <View style={{ backgroundColor: "#3B1F0B", width: 15, height: 15, borderRadius: 8 }}></View>
-</View>
-  
- 
-</View>
-
-<View style={{
-backgroundColor: "#D4736E",
-  width: 40,
-  height: 15,
-  borderRadius: 10,
-  alignSelf: "center",
-  marginTop: 50,
-
-}}></View>
+      <View style={{ width: 350, height: 420}}>
+        <Image
+        source={require("@/assets/face.png")}
+        style={{ width: 350, height: 420, position: "absolute"}}
+      />
+      
 
 {concerns.includes("Acne") && (
 <>
