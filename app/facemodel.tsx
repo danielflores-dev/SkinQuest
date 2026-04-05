@@ -71,38 +71,38 @@ opacity: enemyHP/100,
 )}
 {concerns.includes("Blackheads") && (
 <>
-<View style={{
+<Image 
+source={require("@/assets/blackheads.png")}
+style={{
 position: "absolute",
-top: 140,
-right: 120,
-width: 7,
-height: 7,
-borderRadius: 3,
-backgroundColor: "black",
+top: 240,
+right: 267,
+width: 75,
+height: 75,
 opacity: enemyHP/100,
-}}></View>
+}}/>
 
-<View style={{
+<Image 
+source={require("@/assets/blackheads.png")}
+style={{
 position: "absolute",
-top: 125,
-right: 110,
-width: 7,
-height: 7,
-borderRadius: 3,
-backgroundColor: "black",
+top: 260,
+right: 305,
+width: 65,
+height: 65,
 opacity: enemyHP/100,
-}}></View>
+}}/>
 
-<View style={{
+<Image
+source={require("@/assets/blackheads.png")} 
+style={{
 position: "absolute",
-top: 125,
-right: 130,
-width: 7,
-height: 7,
-borderRadius: 3,
-backgroundColor: "black",
+top: 255,
+right: 240,
+width: 65,
+height: 65,
 opacity: enemyHP/100,
-}}></View>
+}}/>
 </>
 )}
 
