@@ -20,53 +20,53 @@ export default function FaceModel() {
       
       
       
-      <View style={{ width: 350, height: 420}}>
+      <View style={{ width: 600, height: 670}}>
         <Image
         source={require("@/assets/face.png")}
-        style={{ width: 350, height: 420, position: "absolute"}}
+        style={{ width: 600, height: 670, position: "absolute"}}
       />
       
 
 {concerns.includes("Acne") && (
 <>
-  <View style={{
+  <Image 
+    source={require("@/assets/acne.png")}
+    style={{
     position: "absolute",
-    top: 50,
-    left: 100,
-    width: 12 * (enemyHP/100),
-    height: 12 * (enemyHP/100),
-    borderRadius: 6 * (enemyHP/100),
-    backgroundColor: "red",
+    top: 90,
+    left: 180,
+    width: 85 * (enemyHP/100),
+    height: 85 * (enemyHP/100),
     opacity: enemyHP/100,
 
 
 
-  }}>
-</View>
-<View style={{
+  }}/>
+
+<Image 
+source={require("@/assets/acne.png")}
+style={{
   position: "absolute",
-  bottom: 60,
-  right: 80,
-  width: 12 * (enemyHP/100),
-  height: 12 * (enemyHP/100),
-  borderRadius: 6 * (enemyHP/100),
-  backgroundColor: "red",
+  top: 280,
+  right: 170,
+  width: 70 * (enemyHP/100),
+  height: 70 * (enemyHP/100),
   opacity: enemyHP/100,
 
-}}>
-</View>
+}}/>
 
-<View style={{
+
+<Image 
+source={require("@/assets/acne.png")}
+style={{
 position: "absolute",
-bottom: 80,
-left: 70,
-width: 12 * (enemyHP/100),
-height: 12 * (enemyHP/100),
-borderRadius: 6 * (enemyHP/100),
-backgroundColor: "red",
+top: 290,
+left: 140,
+width: 65 * (enemyHP/100),
+height: 65 * (enemyHP/100),
 opacity: enemyHP/100,
 
-}}></View> 
+}}/> 
 </>
 )}
 {concerns.includes("Blackheads") && (
