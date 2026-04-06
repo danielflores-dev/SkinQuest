@@ -108,31 +108,30 @@ opacity: enemyHP/100,
 
 {concerns.includes("Wrinkles") && (
 <>
-<View style={{
+<Image 
+source={require("@/assets/wrinkles.png")} 
+style={{
 position: "absolute",
-bottom: 125,
-left: 60,
+bottom: 250,
+left: 170,
 alignSelf: "center",
-width: 35,
-height:7,
-borderRadius: 6,
-backgroundColor: "#bc8f8f",
+width: 95,
+height:100,
 opacity: enemyHP/100,
-transform:[{ rotate:`330deg`}],
-}}></View>
 
-<View style={{
+}}/>
+
+<Image 
+source={require("@/assets/wrinkles2.png")} 
+style={{
 position: "absolute",
-bottom: 125,
-right: 60,
+bottom: 250,
+right: 160,
 alignSelf: "center",
-width: 35,
-height:7,
-borderRadius: 6,
-backgroundColor: "#bc8f8f",
-transform:[{ rotate:`20deg`}],
+width: 95,
+height:100,
 opacity: enemyHP/100,
-}}></View>
+}}/>
 </>
 )}
 
