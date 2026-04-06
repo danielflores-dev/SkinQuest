@@ -1,15 +1,15 @@
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function DailyLog(){
     const router = useRouter();
     const { concerns, streak, currentHP, stage } = useGlobalSearchParams();
     const [products, setproducts] = useState([
 
-        {id: 10, text: "Cleanser", selected: false},
-        {id: 11, text: "Moisturizer", selected: false},
-        {id: 12, text: "Sunscreen", selected: false},
+        {id: 10, text: "Cleanser", selected: false, image : require("@/assets/cleanser.png")},
+        {id: 11, text: "Moisturizer", selected: false, image : require("@/assets/moist.png")},
+        {id: 12, text: "Sunscreen", selected: false, image : require("@/assets/sun.png")},
     ]);
 function toggleDailyLog(id){
     setproducts((prev)=>{
@@ -33,8 +33,20 @@ function toggleDailyLog(id){
     style={[styles.card,  {backgroundColor: item.selected ? "green" : "#e9967a", 
      }]}    
     >
-    <Text style={{ fontSize: 20, color: "gold", padding: 5}}>
-           {item.selected ? "✅" : ""}{item.text}
+
+
+    
+
+     
+    <Image
+    source = {item.image}
+    style={{width:250, height:250}}
+    />
+   
+   
+   
+    <Text style={{ fontSize: 20, color: "gold", padding: 5, fontWeight: "bold"}}>
+           {item.text}
             </Text>
     </TouchableOpacity>
 
@@ -80,6 +92,8 @@ function toggleDailyLog(id){
     </TouchableOpacity>
     
 
+   
+  
     </View>
 )}
 
