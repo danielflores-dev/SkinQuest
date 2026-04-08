@@ -1,6 +1,14 @@
 import { useGlobalSearchParams, useRouter } from "expo-router";
+import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import { db } from "./firebaseConfig";
+
+
+
+
+
+
 
 export default function FaceModel() {
   const params = useGlobalSearchParams();
@@ -12,6 +20,20 @@ export default function FaceModel() {
   const router = useRouter();
   const concerns = params.concerns ? String(params.concerns).split(",") : [];
   const streak = params.streak ? Number(params.streak) :0;
+
+async function saveProgress() {
+  try {
+    await setDoc(doc(db, "users", "player1"), {
+      concerns: String(params.concerns),
+      hp: enemyHP,
+      streak: streak,
+      stage: stage,
+    });
+    console.log("saved!");
+  } catch (error) {
+    console.log("error:", error);
+  }
+}
  
 
   return (
@@ -255,7 +277,9 @@ position: "absolute",
 
       <TouchableOpacity
   style={{ backgroundColor: "#e9967a", padding: 15, borderRadius: 27, marginTop: 20 }}
-  onPress={() => router.push({
+  onPress={async () => {
+    await saveProgress();
+    router.push({
       pathname: "./dailylog",
       params: { 
         concerns: String(params.concerns) ,
@@ -263,7 +287,7 @@ position: "absolute",
         currentHP : String(enemyHP),
         stage: String(stage),
       }
-  })}
+  })}}
 >
   <Text style={{ fontSize: 24, color: "#b0e0e6" }}>Log Today's Routine</Text>
 </TouchableOpacity>
