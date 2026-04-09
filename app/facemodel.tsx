@@ -1,6 +1,6 @@
 import { useGlobalSearchParams, useRouter } from "expo-router";
-import { doc, setDoc } from "firebase/firestore";
-import { useState } from "react";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { db } from "./firebaseConfig";
 
@@ -13,30 +13,59 @@ import { db } from "./firebaseConfig";
 export default function FaceModel() {
   const params = useGlobalSearchParams();
   const damage = params.damage ? Number(params.damage) :0;
- const stage = params.stage ? Number(params.stage) :1;
+ const [stage, setStage] = useState(params.stage ? Number(params.stage) :1);
   const hp = params.hp ? Number(params.hp) : 100 + (stage -1) * 50;
   const maxHp = 100 + (stage -1) * 50;
   const [enemyHP, setEnemyHP] = useState(hp);
   const router = useRouter();
-  const concerns = params.concerns ? String(params.concerns).split(",") : [];
-  const streak = params.streak ? Number(params.streak) :0;
+  const [concerns, setConcerns] = useState(
+  params.concerns ? String(params.concerns).split(",") : [] );
+  const [streak, setStreak] = useState(params.streak ? Number(params.streak) :0);
+  const [loaded, setLoaded] = useState(false);
 
-async function saveProgress() {
-  try {
-    await setDoc(doc(db, "users", "player1"), {
-      concerns: String(params.concerns),
-      hp: enemyHP,
-      streak: streak,
-      stage: stage,
-    });
-    console.log("saved!");
-  } catch (error) {
-    console.log("error:", error);
+useEffect(() => {
+  if (params.hp || params.concerns) {
+    setLoaded(true);
+    return;
   }
-}
- 
+  async function loadProgress() {
+    try {
+      const docSnap = await getDoc(doc(db, "users", "player1"));
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setEnemyHP(data.hp || 100);
+        setStage(data.stage || 1);
+        setStreak(data.streak || 0);
+        setConcerns(data.concerns ? data.concerns.split(",") : []);
+      }
+      setLoaded(true);
+    } catch (error) {
+      console.log("error:", error);
+      setLoaded(true);
+    }
+  }
+  loadProgress();
+}, []);
 
-  return (
+useEffect(() => {
+  if (!loaded) return;
+  if (concerns.length === 0) return;
+  async function save() {
+    try {
+      await setDoc(doc(db, "users", "player1"), {
+        concerns: concerns.join(","),
+        hp: enemyHP,
+        streak: streak,
+        stage: stage,
+      });
+    } catch (error) {
+      console.log("error:", error);
+    }
+  }
+  save();
+}, [enemyHP, stage, loaded]);
+
+return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#d2b48c" }}>
       <Text style={{ fontSize: 24, color: "#b0e0e6", position: "absolute",top:130 , fontWeight: "bold"}}>Breakouts</Text>
       
@@ -278,7 +307,7 @@ position: "absolute",
       <TouchableOpacity
   style={{ backgroundColor: "#e9967a", padding: 15, borderRadius: 27, marginTop: 20 }}
   onPress={async () => {
-    await saveProgress();
+    
     router.push({
       pathname: "./dailylog",
       params: { 
@@ -311,6 +340,7 @@ bottom : 100
    
 }}
 onPress={() => router.push({
+  
   pathname: "./facemodel",
       params: { 
         concerns: String(params.concerns) ,
@@ -349,7 +379,10 @@ color: "gold"
        }}>Back</Text>
        </TouchableOpacity>
     </View>
-  );
-   
+  
+
+        
+);
+ 
 
 }

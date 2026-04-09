@@ -1,9 +1,32 @@
 import { useRouter } from "expo-router";
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { db } from "./firebaseConfig";
+
+
+
 
 
 export default function App(){
   const router = useRouter();
+  const [hasSave, setHasSave] = useState(false);
+
+  useEffect(() => {
+    async function checkSave() {
+      try {
+        const docSnap = await getDoc(doc(db, "users", "player1"));
+        if (docSnap.exists()) {
+          setHasSave(true);
+        }
+      } catch (error) {
+        console.log("error:", error);
+      }
+    }
+    checkSave();
+  }, []);
+
+
     return(
     <View style={styles.container}> 
      <Text style={styles.text}>SkinQuest</Text>
@@ -12,6 +35,17 @@ export default function App(){
       onPress={() => router.push("./concerns")}>
         <Text style={styles.buttonText}>Lets begin your journey!</Text>
         </TouchableOpacity>
+
+      {hasSave && (
+        <TouchableOpacity
+          style={{ backgroundColor: "green", padding: 15, borderRadius: 27, marginTop: 20 }}
+          onPress={() => router.push("./facemodel")}
+        >
+          <Text style={{ fontSize: 20, color: "white" }}>Continue Progress</Text>
+        </TouchableOpacity>
+      )}
+
+
     </View>
     );
     

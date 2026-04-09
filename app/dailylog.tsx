@@ -1,6 +1,8 @@
 import { useGlobalSearchParams, useRouter } from "expo-router";
+import { doc, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { db } from "./firebaseConfig";
 
 export default function DailyLog(){
     const router = useRouter();
@@ -60,24 +62,28 @@ function toggleDailyLog(id){
       borderRadius:27,
       backgroundColor: "#e9967a",
       }}
-      onPress={() =>{
- const completed = products.filter((item) => item.selected).length;
-        
-
-        if (completed> 0){
-          router.push({
-            pathname: "./facemodel",
-            params: {
-              concerns : String(concerns),
-              hp: String(Math.max(0, Number(currentHP) - (completed * 15))),
-              streak: String(Number(streak) +1),
-              stage: String(stage)
-              
-            }
-          });
-        }
-
-      }}
+     onPress={async () => {
+        const completed = products.filter((item) => item.selected).length;
+         if (completed > 0) {
+         const newHP = Math.max(0, Number(currentHP) - (completed * 15));
+         const newStreak = Number(streak) + 1;
+         await setDoc(doc(db, "users", "player1"), {
+            concerns: String(concerns),
+            hp: newHP,
+            streak: newStreak,
+          stage: Number(stage),
+    });
+      router.push({
+       pathname: "./facemodel",
+        params: {
+          concerns: String(concerns),
+         hp: String(newHP),
+         streak: String(newStreak),
+         stage: String(stage),
+      }
+    });
+  }
+}}
       
       >
 
@@ -109,10 +115,6 @@ function toggleDailyLog(id){
       color: "gold",
       fontWeight: "bold"
     }}>Back</Text>
-    
-   
-
-
     </TouchableOpacity>
    
   
