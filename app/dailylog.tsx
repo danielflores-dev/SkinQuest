@@ -9,9 +9,9 @@ export default function DailyLog(){
     const { concerns, streak, currentHP, stage } = useGlobalSearchParams();
     const [products, setproducts] = useState([
 
-        {id: 10, text: "Cleanser", selected: false, image : require("@/assets/cleanser.png")},
-        {id: 11, text: "Moisturizer", selected: false, image : require("@/assets/moist.png")},
-        {id: 12, text: "Sunscreen", selected: false, image : require("@/assets/sun.png")},
+        {id: 10, text: "Cleanser", selected: false, image : require("@/assets/cleanser.png"), glow : require("@/assets/BackCleanser.png")},
+        {id: 11, text: "Moisturizer", selected: false, image : require("@/assets/moist.png"), glow : require("@/assets/backmoist.png")},
+        {id: 12, text: "Sunscreen", selected: false, image : require("@/assets/sun.png"), glow : require("@/assets/backsun.png")},
     ]);
 function toggleDailyLog(id){
     setproducts((prev)=>{
@@ -32,14 +32,17 @@ function toggleDailyLog(id){
     <TouchableOpacity
     key={item.id}
     onPress= {() => toggleDailyLog(item.id)}
-    style={[styles.card,  {backgroundColor: item.selected ? "green" : "#e9967a", 
+    style={[styles.card,  {backgroundColor: item.selected ? "transparent" : "#e9967a", 
      }]}    
     >
 
-
+     {item.selected && (
+      <Image
+      source={item.glow}
+      style={{width: 280, height: 230, position: "absolute"}}
+      />
+      )}
     
-
-     
     <Image
     source = {item.image}
     style={{width:250, height:250}}
