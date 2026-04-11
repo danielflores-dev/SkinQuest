@@ -1,5 +1,5 @@
 import { useGlobalSearchParams, useRouter } from "expo-router";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { db } from "./firebaseConfig";
@@ -21,13 +21,12 @@ export default function FaceModel() {
   const [concerns, setConcerns] = useState(
   params.concerns ? String(params.concerns).split(",") : [] );
   const [streak, setStreak] = useState(params.streak ? Number(params.streak) :0);
-  const [loaded, setLoaded] = useState(false);
+  const totalHearts=5;
+  const fullHearts= Math.round((enemyHP / maxHp) * totalHearts);
+ 
 
 useEffect(() => {
-  if (params.hp || params.concerns) {
-    setLoaded(true);
-    return;
-  }
+  if (params.hp || params.concerns) return;
   async function loadProgress() {
     try {
       const docSnap = await getDoc(doc(db, "users", "player1"));
@@ -38,32 +37,14 @@ useEffect(() => {
         setStreak(data.streak || 0);
         setConcerns(data.concerns ? data.concerns.split(",") : []);
       }
-      setLoaded(true);
     } catch (error) {
       console.log("error:", error);
-      setLoaded(true);
     }
   }
   loadProgress();
 }, []);
 
-useEffect(() => {
-  if (!loaded) return;
-  if (concerns.length === 0) return;
-  async function save() {
-    try {
-      await setDoc(doc(db, "users", "player1"), {
-        concerns: concerns.join(","),
-        hp: enemyHP,
-        streak: streak,
-        stage: stage,
-      });
-    } catch (error) {
-      console.log("error:", error);
-    }
-  }
-  save();
-}, [enemyHP, stage, loaded]);
+
 
 return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#d2b48c" }}>
@@ -285,8 +266,17 @@ position: "absolute",
 </View>
 
 
-      <Text style={{ color: "#f08080", fontSize: 24, fontWeight: "bold", marginBottom: 10, justifyContent: "center",}}> Enemy HP: {enemyHP}/100
-      </Text> 
+      
+      <View style={{ flexDirection: "row",  }}>
+  {Array.from({ length: totalHearts }).map((_, index) => (
+    <Image
+      key={index}
+      source={index < fullHearts ? require("@/assets/heart.png") : require("@/assets/emptyheart.png")}
+      style={{ width: 110, height: 110 }}
+    />
+  ))}
+</View>
+      
       {enemyHP <= 0 && (
 
         <Text style ={{
@@ -324,7 +314,7 @@ position: "absolute",
     
  <Text style={{
 position: "absolute",
-bottom: 175, 
+bottom: 145, 
  fontSize: 20,
   color: "white",
  }}>Streak: {streak}</Text> 
