@@ -48,14 +48,10 @@ useEffect(() => {
 
 return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#d2b48c" }}>
-      <Text style={{ fontSize: 24, color: "#b0e0e6", position: "absolute",top:130 , fontWeight: "bold"}}>Breakouts</Text>
-      
-      
-      
-      <View style={{ width: 600, height: 670}}>
+      <View style={{ width: 350, height: 420}}>
         <Image
         source={require("@/assets/face.png")}
-        style={{ width: 600, height: 670, position: "absolute"}}
+        style={{ width: 350, height: 420, position: "absolute", bottom : -50}}
       />
       
 
@@ -65,10 +61,10 @@ return (
     source={require("@/assets/acne.png")}
     style={{
     position: "absolute",
-    top: 90,
-    left: 180,
-    width: 85 * (enemyHP/100),
-    height: 85 * (enemyHP/100),
+    top: 145,
+    left: 218,
+    width: 50 * (enemyHP/100),
+    height: 50 * (enemyHP/100),
     opacity: enemyHP/100,
 
 
@@ -79,10 +75,10 @@ return (
 source={require("@/assets/acne.png")}
 style={{
   position: "absolute",
-  top: 280,
-  right: 170,
-  width: 70 * (enemyHP/100),
-  height: 70 * (enemyHP/100),
+  top: 190,
+  right: 250,
+  width: 40 * (enemyHP/100),
+  height: 40 * (enemyHP/100),
   opacity: enemyHP/100,
 
 }}/>
@@ -93,9 +89,9 @@ source={require("@/assets/acne.png")}
 style={{
 position: "absolute",
 top: 290,
-left: 140,
-width: 65 * (enemyHP/100),
-height: 65 * (enemyHP/100),
+left: 170,
+width: 40 * (enemyHP/100),
+height: 40 * (enemyHP/100),
 opacity: enemyHP/100,
 
 }}/> 
@@ -107,10 +103,10 @@ opacity: enemyHP/100,
 source={require("@/assets/blackheads.png")}
 style={{
 position: "absolute",
-top: 240,
-right: 267,
-width: 75,
-height: 75,
+top: 200,
+right: 157,
+width: 40,
+height: 40,
 opacity: enemyHP/100,
 }}/>
 
@@ -118,10 +114,10 @@ opacity: enemyHP/100,
 source={require("@/assets/blackheads.png")}
 style={{
 position: "absolute",
-top: 260,
-right: 305,
-width: 65,
-height: 65,
+top: 220,
+right: 177,
+width: 45,
+height: 45,
 opacity: enemyHP/100,
 }}/>
 
@@ -129,10 +125,10 @@ opacity: enemyHP/100,
 source={require("@/assets/blackheads.png")} 
 style={{
 position: "absolute",
-top: 255,
-right: 240,
-width: 65,
-height: 65,
+top: 215,
+right: 135,
+width: 45,
+height: 45,
 opacity: enemyHP/100,
 }}/>
 </>
@@ -144,11 +140,11 @@ opacity: enemyHP/100,
 source={require("@/assets/wrinkles.png")} 
 style={{
 position: "absolute",
-bottom: 235,
-left: 155,
+bottom: 145,
+left: 215,
 alignSelf: "center",
-width: 95,
-height:100,
+width: 55,
+height:55,
 opacity: enemyHP/100,
 
 }}/>
@@ -157,11 +153,11 @@ opacity: enemyHP/100,
 source={require("@/assets/wrinkles2.png")} 
 style={{
 position: "absolute",
-bottom: 250,
-right: 160,
+bottom: 145,
+right: 215,
 alignSelf: "center",
-width: 95,
-height:100,
+width: 55,
+height:55,
 opacity: enemyHP/100,
 }}/>
 </>
@@ -173,20 +169,20 @@ opacity: enemyHP/100,
 source={require("@/assets/redness.png")} 
 style={{
 position: "absolute",
-bottom: 185,
-left: 40,
-width: 250,
-height: 250,
+bottom: 85,
+left: 65,
+width: 90,
+height: 90,
 opacity: enemyHP/100,
 }}/>
 <Image
 source={require("@/assets/redness.png")} 
 style={{
 position: "absolute",
-bottom: 195,
-right: 45,
-width: 250,
-height: 250,
+bottom: 85,
+right: 85,
+width: 90,
+height: 90,
 opacity: enemyHP/100,
 }}/>
 </>
@@ -198,9 +194,9 @@ opacity: enemyHP/100,
 source={require("@/assets/eyebags.png")}
 style={{
 position: "absolute",
-left: 120,
-top: 275,
-width: 195,
+left: 90,
+top: 205,
+width: 65,
 height: 65,
 opacity: enemyHP/100,
 }}/>
@@ -208,9 +204,9 @@ opacity: enemyHP/100,
 source={require("@/assets/eyebags.png")}
 style={{
 position: "absolute",
-right: 145,
-top: 265,
-width: 195,
+right: 100,
+top: 200,
+width: 65,
 height: 65,
 opacity: enemyHP/100,
 }}/>
@@ -223,10 +219,10 @@ opacity: enemyHP/100,
 source={require("@/assets/oil.png")} 
 style={{
 position:"absolute",
-left: 125,
-bottom: 95,
-width:180,
-height: 180,
+left: 95,
+top: 95,
+width:80,
+height: 80,
 opacity: enemyHP/100,
 
 }}/>
@@ -234,10 +230,10 @@ opacity: enemyHP/100,
 source={require("@/assets/oil.png")} 
 style={{
 position:"absolute",
-right: 145,
-bottom: 105,
-width:180,
-height: 180,
+right: 95,
+top: 95,
+width:80,
+height: 80,
 opacity: enemyHP/100,
 
 }}/>
@@ -245,34 +241,12 @@ opacity: enemyHP/100,
 )}
 </View>
 
-<View style={{
-  position: "absolute",
-  top: 165,
-  width: 250,
-  height: 40,
-  borderRadius: 30,
-  backgroundColor: "grey",
-}}>
-<View style={{
-position: "absolute",
-  top:0,
-  width: (enemyHP/maxHp) *250,
-  height: 40,
-  borderRadius: 30,
-  backgroundColor: enemyHP > maxHp * 0.6 ? "green" : enemyHP > maxHp * 0.3 ? "yellow" : "red",
-
-}}></View>
-
-</View>
-
-
-      
-      <View style={{ flexDirection: "row",  }}>
+<View style={{ flexDirection: "row",  }}>
   {Array.from({ length: totalHearts }).map((_, index) => (
     <Image
       key={index}
       source={index < fullHearts ? require("@/assets/heart.png") : require("@/assets/emptyheart.png")}
-      style={{ width: 110, height: 110 }}
+      style={{ width: 75, height: 95 }}
     />
   ))}
 </View>
