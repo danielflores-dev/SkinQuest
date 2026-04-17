@@ -41,6 +41,11 @@ export default function App(){
       <Text style={styles.textDesc}>Your Skincare journey reimagined</Text>
       <TouchableOpacity style={styles.button} 
       onPress={() => router.push("./concerns")}>
+         <ImageBackground 
+    source={require("@/assets/begin2.png")}
+    style={{position: "absolute", bottom: -235,right: -95, height: 600, width: 400, justifyContent: "center", alignItems: "center"}}
+    resizeMode="contain"
+    ></ImageBackground>
         <Text style={styles.buttonText}>Lets begin your journey!</Text>
         </TouchableOpacity>
 
@@ -53,7 +58,7 @@ export default function App(){
     style={{position: "absolute", bottom: -400,right: -205, height: 200, width: 400, justifyContent: "center", alignItems: "center"}}
     resizeMode="contain"
     >
-          <Text style={{ fontSize: 20, color: "#ce97df", fontWeight: "bold", }}>Continue Progress</Text>
+          <Text style={{ fontSize: 20, color: "#04961c", fontWeight: "bold", textAlign: "center" }}>Load Progress</Text>
         
         </ImageBackground>
         </TouchableOpacity>
@@ -73,8 +78,8 @@ const styles = StyleSheet.create({
     
   },
   buttonText:{
-    fontSize : 28,
-    color: "#b0e0e6",
+    fontSize : 26,
+    color: "#bb891e",
     fontWeight: "bold",
     textAlign: "center",
     
@@ -101,7 +106,7 @@ const styles = StyleSheet.create({
   },
   textDesc:{
     fontSize:25,
-    color: "#b8860b",
+    color: "#ffbe5d",
     marginBottom:40,
     fontWeight:"bold",
     position: "absolute", top: 450
