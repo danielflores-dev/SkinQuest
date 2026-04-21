@@ -49,7 +49,7 @@ export default function Concerns() {
         <TouchableOpacity 
         key={item.id} 
         onPress={() => toggleConcerns(item.id)}
-        style = {[styles.card,  {backgroundColor: item.selected ? "#000000" : "transparent"
+         style = {[styles.card,  {backgroundColor: item.selected ? "#57df75" : "transparent"
          }]}
         >
         <ImageBackground

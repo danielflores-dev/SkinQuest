@@ -21,8 +21,10 @@ export default function FaceModel() {
   const [concerns, setConcerns] = useState(
   params.concerns ? String(params.concerns).split(",") : [] );
   const [streak, setStreak] = useState(params.streak ? Number(params.streak) :0);
+  const [coin, setCoin] = useState(params.coin ? Number(params.coin) :0);
   const totalHearts=5;
   const fullHearts= Math.round((enemyHP / maxHp) * totalHearts);
+  const multiplier = Math.floor(coin / 3) * 0.25
  
 
 useEffect(() => {
@@ -36,6 +38,7 @@ useEffect(() => {
         setStage(data.stage || 1);
         setStreak(data.streak || 0);
         setConcerns(data.concerns ? data.concerns.split(",") : []);
+        setCoin(data.coin || 0)
       }
     } catch (error) {
       console.log("error:", error);
@@ -283,6 +286,7 @@ opacity: enemyHP/100,
         streak : String(streak),
         currentHP : String(enemyHP),
         stage: String(stage),
+        coin: String(coin)
       }
   })}}
 >
@@ -316,7 +320,8 @@ onPress={() => router.push({
       params: { 
         concerns: String(params.concerns) ,
         streak : String(streak),
-        stage: String(Number(stage) +1)
+        stage: String(Number(stage) +1),
+        coin :String(coin)
       }
 
 }
@@ -333,7 +338,7 @@ color: "gold"
        <TouchableOpacity onPress={() => router.back()}
          style={{
          position: "absolute",
-         right: 320,
+         right: 340,
          bottom: 770,
          backgroundColor: "#cd5c5c",
          borderRadius:55,
@@ -349,6 +354,14 @@ color: "gold"
          fontWeight: "bold"
        }}>Back</Text>
        </TouchableOpacity>
+
+
+      <Text style={{color: "#05790b", fontSize: 24, fontWeight: "bold", right: -145, top: -700 }}>
+       coins: {coin}
+      </Text>
+       <Text style={{color: "#6d075f", fontSize: 20, fontWeight: "bold", right: -145, top: -695 }}>
+        {multiplier}x
+      </Text>
     </ImageBackground>
   
 
