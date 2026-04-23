@@ -340,7 +340,7 @@ color: "gold"
          position: "absolute",
          right: 340,
          bottom: 770,
-         backgroundColor: "#cd5c5c",
+         backgroundColor: "#ff0000",
          borderRadius:55,
          height:65,
          width:65, 
@@ -350,7 +350,7 @@ color: "gold"
       
        <Text style={{
         
-         color: "gold",
+         color: "#6e1a1a",
          fontWeight: "bold"
        }}>Back</Text>
        </TouchableOpacity>
@@ -362,10 +362,28 @@ color: "gold"
        <Text style={{color: "#6d075f", fontSize: 20, fontWeight: "bold", right: -145, top: -695 }}>
         {multiplier}x
       </Text>
+    
+    <TouchableOpacity onPress={async () => router.push({
+      pathname: "./shop",
+      params: { coin : String(coin)}
+    })}
+    style={{
+      backgroundColor:"#096418",
+      position:"absolute",
+      right: 67,
+      top: 400,
+      width: 60,
+      height: 60,
+      borderRadius: 30,
+      alignItems: "center",
+      justifyContent: "center"
+    }}
+    >
+    <Text style={{color: "#00ff55", fontWeight: "bold"}}>Shop</Text>
+    </TouchableOpacity>
+    
+    
     </ImageBackground>
-  
-
-        
 );
  }
 

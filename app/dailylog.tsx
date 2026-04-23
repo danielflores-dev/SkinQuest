@@ -22,6 +22,7 @@ function toggleDailyLog(id){
         return item;
       }
     
+    
   })});
   }
   return (
@@ -113,7 +114,7 @@ function toggleDailyLog(id){
       position: "absolute",
       right: 370,
       bottom: 750,
-      backgroundColor: "#cd5c5c",
+      backgroundColor: "#ff0000",
       borderRadius:55,
       height:55,
       width:55, 
@@ -123,7 +124,7 @@ function toggleDailyLog(id){
    
     <Text style={{
      
-      color: "gold",
+      color: "#6e1a1a",
       fontWeight: "bold"
     }}>Back</Text>
     </TouchableOpacity>
