@@ -4,7 +4,7 @@ import { ImageBackground, StyleSheet, Text, TouchableOpacity } from "react-nativ
 
 export default function Shop () {
     const router = useRouter();
-    const { coin: coinParam } = useGlobalSearchParams();
+    const { coin: coinParam, concerns, streak, stage, hp } = useGlobalSearchParams();
     const [coin, setCoin] = useState(Number(coinParam) || 0);
 
     const [shop, setShop] = useState ([
@@ -37,17 +37,43 @@ export default function Shop () {
     
     
     return (
-    <ImageBackground 
-        source={require("@/assets/background.png")}
-        style={styles.container}
-        resizeMode="cover"
-    > 
-        {shop.map((item) => (
-        <Text key={item.id}>{item.text} - {item.price} coins</Text>
-        ))}
+     <ImageBackground 
+    source={require("@/assets/background.png")}
+    style={styles.container}
+    resizeMode="cover"
+  >
+    <Text style={{ fontSize: 24, color: "gold", fontWeight: "bold", marginBottom: 20 }}>
+      Coins: {coin}
+    </Text>
+      {shop.map((item) => (
+  <TouchableOpacity 
+    key={item.id} 
+    onPress={() => buyItem(item.id)}
+    style={{
+      backgroundColor: item.selected ? "green" : "#e9967a",
+      padding: 15,
+      margin: 5,
+      borderRadius: 10,
+      width: "80%",
+      alignItems: "center",
+    }}
+  >
+    <Text style={{ fontSize: 20, color: "gold", fontWeight: "bold" }}>
+      {item.text} - {item.price} coins
+    </Text>
+  </TouchableOpacity>
+))}
     
     
-        <TouchableOpacity onPress={() => router.back()}
+        <TouchableOpacity onPress={() => router.push({
+          pathname:"./facemodel",
+          params:{ coin: String(coin), concerns: String(concerns),
+         hp: String(hp),
+         streak: String(streak),
+         stage: String(stage),}
+
+
+        })}
          style={{
          position: "absolute",
          right: 340,
