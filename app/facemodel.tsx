@@ -397,6 +397,12 @@ fontWeight: "bold"
     style={{ position: "absolute", top: 180, left: 5, width: 400, height: 400 }}
   />
 )}
+  {purchased.includes("spikey hair") && (
+  <Image 
+    source={require("@/assets/shair.png")}
+    style={{ position: "absolute", top: 72, left: 55, width: 400, height: 400 }}
+  />
+)}
 
     </ImageBackground>
 );
