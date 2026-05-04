@@ -6,7 +6,7 @@ import { db } from "./firebaseConfig";
 
 export default function DailyLog(){
     const router = useRouter();
-    const { concerns, streak, currentHP, stage, coin, multiplier, damage} = useGlobalSearchParams();
+    const { concerns, streak, currentHP, stage, coin, multiplier, damage, purchased} = useGlobalSearchParams();
     const [products, setproducts] = useState([
 
         {id: 10, text: "Cleanser", selected: false, image : require("@/assets/cleanser.png"), glow : require("@/assets/BackCleanser.png")},
@@ -70,28 +70,33 @@ function toggleDailyLog(id){
       backgroundColor: "#e62922",
       }}
      onPress={async () => {
-        const completed = products.filter((item) => item.selected).length;
-         if (completed > 0) {
-         const multiplier = Math.floor(Number(coin) / 3) * 0.25;
-         const damage = completed * 15 * (1 + multiplier);
-         const newHP = Math.max(0, Number(currentHP) - damage);
-         const newStreak = Number(streak) + 1;
-         const newCoin = Number(coin) + 1;
-         await setDoc(doc(db, "users", "player1"), {
-            concerns: String(concerns),
-            hp: newHP,
-            streak: newStreak,
-            stage: Number(stage),
-            coin: newCoin
+  const completed = products.filter((item) => item.selected).length;
+  if (completed > 0) {
+    const multiplier = Math.floor(Number(coin) / 3) * 0.25;
+    const damage = completed * 15 * (1 + multiplier);
+    const newHP = Math.max(0, Number(currentHP) - damage);
+    const newStreak = Number(streak) + 1;
+    const newCoin = Number(coin) + 1;
+    
+    
+    await setDoc(doc(db, "users", "player1"), {
+      concerns: String(concerns),
+      hp: newHP,
+      streak: newStreak,
+      stage: Number(stage),
+      coin: newCoin,
+      purchased: String(purchased || ""),
     });
-      router.push({
-       pathname: "./facemodel",
-        params: {
-          concerns: String(concerns),
-         hp: String(newHP),
-         streak: String(newStreak),
-         stage: String(stage),
-         coin : String(newCoin)
+    
+    router.push({
+      pathname: "./facemodel",
+      params: {
+        concerns: String(concerns),
+        hp: String(newHP),
+        streak: String(newStreak),
+        stage: String(stage),
+        coin: String(newCoin),
+        purchased: String(purchased || ""),
       }
     });
   }
