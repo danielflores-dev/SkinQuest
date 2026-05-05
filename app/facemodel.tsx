@@ -25,7 +25,7 @@ export default function FaceModel() {
   const totalHearts=5;
   const fullHearts= Math.round((enemyHP / maxHp) * totalHearts);
   const multiplier = Math.floor(coin / 3) * 0.25;
-  const purchased = params.purchased ? String(params.purchased).split(",") : [];
+  const [purchased, setPurchased] = useState(params.purchased ? String(params.purchased).split(",") : []);
  
 
 
@@ -41,7 +41,8 @@ useEffect(() => {
         setStage(data.stage || 1);
         setStreak(data.streak || 0);
         setConcerns(data.concerns ? data.concerns.split(",") : []);
-        setCoin(data.coin || 0)
+        setCoin(data.coin || 0);
+        setPurchased(data.purchased ? data.purchased.split(",") : []);
       }
     } catch (error) {
       console.log("error:", error);
@@ -290,7 +291,8 @@ opacity: enemyHP/100,
         streak : String(streak),
         currentHP : String(enemyHP),
         stage: String(stage),
-        coin: String(coin)
+        coin: String(coin),
+        purchased: String(purchased || "")
       }
   })}}
 >
@@ -325,7 +327,8 @@ onPress={() => router.push({
         concerns: String(params.concerns) ,
         streak : String(streak),
         stage: String(Number(stage) +1),
-        coin :String(coin)
+        coin :String(coin),
+        purchased: String(purchased || "")
       }
 
 }
@@ -382,6 +385,7 @@ fontWeight: "bold"
   hp: String(enemyHP),
   streak: String(streak),
   stage: String(stage),
+  purchased: String(purchased || "")
 }
     })}
     style={{
