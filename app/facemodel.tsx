@@ -62,9 +62,9 @@ return (
            
       <View style={{ width: 350, height: 420}}>
         <Image
-        source={require("@/assets/face.png")}
-        style={{ width: 350, height: 420, position: "absolute", bottom : -50}}
-      />
+  source={enemyHP <= 0 ? require("@/assets/happyface.png") : require("@/assets/face.png")}
+  style={{ width: 350, height: 420, position: "absolute", bottom: -50 }}
+/>
       
 
 {concerns.includes("Acne") && (
