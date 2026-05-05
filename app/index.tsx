@@ -56,6 +56,17 @@ export default function App(){
     require("@/assets/background3.png"),
     ]
 
+    const butFrames = [
+    require("@/assets/begin2.png"),
+    require("@/assets/begin3.png"),
+    require("@/assets/begin4.png"),
+    ]
+
+    const greenFrames =[
+    require("@/assets/green.png"),
+    require("@/assets/green2.png"),
+    require("@/assets/green3.png"),
+    ]
    
 
   return (
@@ -88,11 +99,14 @@ export default function App(){
     <Text style={styles.textDesc}>Your Skincare journey reimagined</Text>
       <TouchableOpacity style={styles.button} 
       onPress={() => router.push("./concerns")}>
-         <ImageBackground 
-    source={require("@/assets/begin2.png")}
+         
+         <JitterImage 
+    frames={butFrames}
+    speed={375}
     style={{position: "absolute", bottom: -235,right: -95, height: 600, width: 400, justifyContent: "center", alignItems: "center"}}
     resizeMode="contain"
-    ></ImageBackground>
+    />
+        
         <Text style={styles.buttonText}>Lets begin your journey!</Text>
         </TouchableOpacity>
 
@@ -100,15 +114,14 @@ export default function App(){
         <TouchableOpacity
           onPress={() => router.push("./facemodel")}
         >
-        <ImageBackground 
-    source={require("@/assets/green.png")}
-    style={{position: "absolute", bottom: -400,right: -205, height: 200, width: 400, justifyContent: "center", alignItems: "center"}}
+        <JitterImage 
+      frames={greenFrames}
+      speed={375}
+    style={{position: "absolute", bottom: -200,right: -135, height: 200, width: 400, justifyContent: "center", alignItems: "center"}}
     resizeMode="contain"
-    >
-          <Text style={{ fontSize: 20, color: "#04961c", fontWeight: "bold", textAlign: "center" }}>Load Progress</Text>
-        
-        </ImageBackground>
-        </TouchableOpacity>
+    />
+    <Text style={{ fontSize: 20, color: "#04961c", fontWeight: "bold",bottom:-100 }}>Load Progress</Text>
+    </TouchableOpacity>
       )}
 
 
@@ -153,7 +166,7 @@ const styles = StyleSheet.create({
   },
   textDesc:{
     fontSize:25,
-    color: "#ffbe5d",
+    color: "#a14f01",
     marginBottom:40,
     fontWeight:"bold",
     position: "absolute", top: 450
