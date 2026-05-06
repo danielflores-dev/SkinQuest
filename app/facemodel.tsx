@@ -5,9 +5,26 @@ import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from
 import { db } from "./firebaseConfig";
 
 
+const JitterImage = ({ frames, speed = 300, style, children, resizeMode = "cover" }) => {
+  const [currentFrame, setCurrentFrame] = useState(0);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentFrame((prev) => (prev + 1) % frames.length);
+    }, speed);
+    return () => clearInterval(timer);
+  }, [frames, speed]);
 
-
+ return (
+    <ImageBackground
+      source={frames[currentFrame]}
+      style={style}
+      resizeMode={resizeMode}
+    >
+      {children}
+    </ImageBackground>
+  );
+};
 
 
 export default function FaceModel() {
@@ -51,7 +68,11 @@ useEffect(() => {
   loadProgress();
 }, []);
 
-
+const confFrames= [
+  require("@/assets/conf1.png"),
+    require("@/assets/conf2.png"),
+    require("@/assets/conf3.png"),
+]
 
 return (
     <ImageBackground 
@@ -62,9 +83,16 @@ return (
            
       <View style={{ width: 350, height: 420}}>
         <Image
-  source={enemyHP <= 0 ? require("@/assets/happyface.png") : require("@/assets/face.png")}
-  style={{ width: 350, height: 420, position: "absolute", bottom: -50 }}
-/>
+      source={enemyHP <= 0 ? require("@/assets/happyface.png") : require("@/assets/face.png")}
+      style={{ width: 350, height: 420, position: "absolute", bottom: -50 }}
+      />
+    {enemyHP <= 0 && (  
+    <JitterImage
+      frames={confFrames}
+      speed={375}
+      style={{ position: "absolute", height: 370, width: 370, top: 80, right: -9 }}
+    />
+    )}
       
 
 {concerns.includes("Acne") && (
