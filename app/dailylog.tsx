@@ -1,8 +1,8 @@
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import { doc, setDoc } from "firebase/firestore";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { db } from "./firebaseConfig";
+import { db, getUserId } from "./firebaseConfig";
 
 export default function DailyLog(){
     const router = useRouter();
@@ -79,7 +79,8 @@ function toggleDailyLog(id){
     const newCoin = Number(coin) + 1;
     
     
-    await setDoc(doc(db, "users", "player1"), {
+    const uid = await getUserId();
+    await setDoc(doc(db, "users", uid), {
       concerns: String(concerns),
       hp: newHP,
       streak: newStreak,

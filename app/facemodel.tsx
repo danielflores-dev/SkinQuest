@@ -2,7 +2,7 @@ import { useGlobalSearchParams, useRouter } from "expo-router";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { db } from "./firebaseConfig";
+import { db, getUserId } from "./firebaseConfig";
 
 
 const JitterImage = ({ frames, speed = 300, style, children, resizeMode = "cover" }) => {
@@ -51,7 +51,8 @@ useEffect(() => {
   if (params.hp || params.concerns) return;
   async function loadProgress() {
     try {
-      const docSnap = await getDoc(doc(db, "users", "player1"));
+      const uid = await getUserId();
+      const docSnap = await getDoc(doc(db, "users", uid));
       if (docSnap.exists()) {
         const data = docSnap.data();
         setEnemyHP(data.hp || 100);

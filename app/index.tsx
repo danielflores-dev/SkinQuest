@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { ImageBackground, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { db } from "./firebaseConfig";
+import { db, getUserId } from "./firebaseConfig";
 
 const JitterImage = ({ frames, speed = 300, style, children, resizeMode = "cover" }) => {
   const [currentFrame, setCurrentFrame] = useState(0);
@@ -32,7 +32,8 @@ export default function App(){
   useEffect(() => {
     async function checkSave() {
       try {
-        const docSnap = await getDoc(doc(db, "users", "player1"));
+        const uid = await getUserId();
+        const docSnap = await getDoc(doc(db, "users", uid));
         if (docSnap.exists()) {
           setHasSave(true);
         }
