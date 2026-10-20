@@ -30,4 +30,5 @@ A gamified skincare app that helps users stay consistent with their routines by 
 
 1. Clone the repo: `git clone https://github.com/danielflores-dev/SkinQuest.git`
 2. Install dependencies: `npm install`
-3. Start the app: `npx expo start`
+3. Copy `.env.example` to `.env` and fill in your Firebase config
+4. Start the app: `npx expo start`
