@@ -1,3 +1,4 @@
+import { applyDamage, calcDamage } from "@/utils/gameLogic";
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
@@ -72,9 +73,8 @@ function toggleDailyLog(id){
      onPress={async () => {
   const completed = products.filter((item) => item.selected).length;
   if (completed > 0) {
-    const multiplier = Math.floor(Number(coin) / 3) * 0.25;
-    const damage = completed * 15 * (1 + multiplier);
-    const newHP = Math.max(0, Number(currentHP) - damage);
+    const damage = calcDamage(completed, Number(coin));
+    const newHP = applyDamage(Number(currentHP), damage);
     const newStreak = Number(streak) + 1;
     const newCoin = Number(coin) + 1;
     

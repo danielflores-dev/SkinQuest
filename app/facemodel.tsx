@@ -1,3 +1,4 @@
+import { calcMultiplier, maxHpForStage } from "@/utils/gameLogic";
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -31,8 +32,8 @@ export default function FaceModel() {
   const params = useGlobalSearchParams();
   const damage = params.damage ? Number(params.damage) :0;
  const [stage, setStage] = useState(params.stage ? Number(params.stage) :1);
-  const hp = params.hp ? Number(params.hp) : 100 + (stage -1) * 50;
-  const maxHp = 100 + (stage -1) * 50;
+  const hp = params.hp ? Number(params.hp) : maxHpForStage(stage);
+  const maxHp = maxHpForStage(stage);
   const [enemyHP, setEnemyHP] = useState(hp);
   const router = useRouter();
   const [concerns, setConcerns] = useState(
@@ -41,7 +42,7 @@ export default function FaceModel() {
   const [coin, setCoin] = useState(params.coin ? Number(params.coin) :0);
   const totalHearts=5;
   const fullHearts= Math.round((enemyHP / maxHp) * totalHearts);
-  const multiplier = Math.floor(coin / 3) * 0.25;
+  const multiplier = calcMultiplier(coin);
   const [purchased, setPurchased] = useState(params.purchased ? String(params.purchased).split(",") : []);
  
 
