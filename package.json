@@ -19,6 +19,7 @@
     "@react-navigation/native": "^7.1.8",
     "@types/jest": "30.0.0",
     "expo": "~58.0.20",
+    "expo-asset": "~58.0.19",
     "expo-constants": "~58.0.13",
     "expo-font": "~58.0.10",
     "expo-haptics": "~58.0.7",
