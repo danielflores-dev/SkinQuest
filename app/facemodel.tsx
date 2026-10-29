@@ -16,7 +16,7 @@ const JitterImage = ({ frames, speed = 300, style, children, resizeMode = "cover
     return () => clearInterval(timer);
   }, [frames, speed]);
 
- return (
+  return (
     <ImageBackground
       source={frames[currentFrame]}
       style={style}
@@ -30,280 +30,289 @@ const JitterImage = ({ frames, speed = 300, style, children, resizeMode = "cover
 
 export default function FaceModel() {
   const params = useGlobalSearchParams();
-  const damage = params.damage ? Number(params.damage) :0;
- const [stage, setStage] = useState(params.stage ? Number(params.stage) :1);
+  const damage = params.damage ? Number(params.damage) : 0;
+  const [stage, setStage] = useState(params.stage ? Number(params.stage) : 1);
   const hp = params.hp ? Number(params.hp) : maxHpForStage(stage);
   const maxHp = maxHpForStage(stage);
   const [enemyHP, setEnemyHP] = useState(hp);
   const router = useRouter();
   const [concerns, setConcerns] = useState(
-  params.concerns ? String(params.concerns).split(",") : [] );
-  const [streak, setStreak] = useState(params.streak ? Number(params.streak) :0);
-  const [coin, setCoin] = useState(params.coin ? Number(params.coin) :0);
-  const totalHearts=5;
-  const fullHearts= Math.round((enemyHP / maxHp) * totalHearts);
+    params.concerns ? String(params.concerns).split(",") : []);
+  const [streak, setStreak] = useState(params.streak ? Number(params.streak) : 0);
+  const [coin, setCoin] = useState(params.coin ? Number(params.coin) : 0);
+  const totalHearts = 5;
+  const fullHearts = Math.round((enemyHP / maxHp) * totalHearts);
   const multiplier = calcMultiplier(coin);
   const [purchased, setPurchased] = useState(params.purchased ? String(params.purchased).split(",") : []);
- 
 
 
-
-useEffect(() => {
-  if (params.hp || params.concerns) return;
-  async function loadProgress() {
-    try {
-      const uid = await getUserId();
-      const docSnap = await getDoc(doc(db, "users", uid));
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        setEnemyHP(data.hp || 100);
-        setStage(data.stage || 1);
-        setStreak(data.streak || 0);
-        setConcerns(data.concerns ? data.concerns.split(",") : []);
-        setCoin(data.coin || 0);
-        setPurchased(data.purchased ? data.purchased.split(",") : []);
+  useEffect(() => {
+    if (params.hp || params.concerns) return;
+    async function loadProgress() {
+      try {
+        const uid = await getUserId();
+        const docSnap = await getDoc(doc(db, "users", uid));
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setEnemyHP(data.hp || 100);
+          setStage(data.stage || 1);
+          setStreak(data.streak || 0);
+          setConcerns(data.concerns ? data.concerns.split(",") : []);
+          setCoin(data.coin || 0);
+          setPurchased(data.purchased ? data.purchased.split(",") : []);
+        }
+      } catch (error) {
+        console.log("error:", error);
       }
-    } catch (error) {
-      console.log("error:", error);
     }
-  }
-  loadProgress();
-}, []);
+    loadProgress();
+  }, []);
 
-const confFrames= [
-  require("@/assets/conf1.png"),
+  const confFrames = [
+    require("@/assets/conf1.png"),
     require("@/assets/conf2.png"),
     require("@/assets/conf3.png"),
-]
+  ];
 
-return (
-    <ImageBackground 
-            source={require("@/assets/background.png")}
-            style={styles.container}
-            resizeMode="cover"
-            > 
-           
-      <View style={{ width: 350, height: 420}}>
+  return (
+    <ImageBackground
+      source={require("@/assets/background.png")}
+      style={styles.container}
+      resizeMode="cover"
+    >
+
+      <View style={{ width: 350, height: 420 }}>
         <Image
-      source={enemyHP <= 0 ? require("@/assets/happyface.png") : require("@/assets/face.png")}
-      style={{ width: 350, height: 420, position: "absolute", bottom: -50 }}
-      />
-    {enemyHP <= 0 && (  
-    <JitterImage
-      frames={confFrames}
-      speed={375}
-      style={{ position: "absolute", height: 370, width: 370, top: 80, right: -9 }}
-    />
-    )}
-      
-
-{concerns.includes("Acne") && (
-<>
-  <Image 
-    source={require("@/assets/acne.png")}
-    style={{
-    position: "absolute",
-    top: 145,
-    left: 218,
-    width: 50 * (enemyHP/100),
-    height: 50 * (enemyHP/100),
-    opacity: enemyHP/100,
+          source={enemyHP <= 0 ? require("@/assets/happyface.png") : require("@/assets/face.png")}
+          style={{ width: 350, height: 420, position: "absolute", bottom: -50 }}
+        />
+        {enemyHP <= 0 && (
+          <JitterImage
+            frames={confFrames}
+            speed={375}
+            style={{ position: "absolute", height: 370, width: 370, top: 80, right: -9 }}
+          />
+        )}
 
 
+        {concerns.includes("Acne") && (
+          <>
+            <Image
+              source={require("@/assets/acne.png")}
+              style={{
+                position: "absolute",
+                top: 145,
+                left: 218,
+                width: 50 * (enemyHP / 100),
+                height: 50 * (enemyHP / 100),
+                opacity: enemyHP / 100,
+              }} />
 
-  }}/>
+            <Image
+              source={require("@/assets/acne.png")}
+              style={{
+                position: "absolute",
+                top: 190,
+                right: 250,
+                width: 40 * (enemyHP / 100),
+                height: 40 * (enemyHP / 100),
+                opacity: enemyHP / 100,
+              }} />
 
-<Image 
-source={require("@/assets/acne.png")}
-style={{
-  position: "absolute",
-  top: 190,
-  right: 250,
-  width: 40 * (enemyHP/100),
-  height: 40 * (enemyHP/100),
-  opacity: enemyHP/100,
+            <Image
+              source={require("@/assets/acne.png")}
+              style={{
+                position: "absolute",
+                top: 290,
+                left: 170,
+                width: 40 * (enemyHP / 100),
+                height: 40 * (enemyHP / 100),
+                opacity: enemyHP / 100,
+              }} />
+          </>
+        )}
 
-}}/>
+        {concerns.includes("Blackheads") && (
+          <>
+            <Image
+              source={require("@/assets/blackheads.png")}
+              style={{
+                position: "absolute",
+                top: 200,
+                right: 157,
+                width: 40,
+                height: 40,
+                opacity: enemyHP / 100,
+              }} />
 
+            <Image
+              source={require("@/assets/blackheads.png")}
+              style={{
+                position: "absolute",
+                top: 220,
+                right: 177,
+                width: 45,
+                height: 45,
+                opacity: enemyHP / 100,
+              }} />
 
-<Image 
-source={require("@/assets/acne.png")}
-style={{
-position: "absolute",
-top: 290,
-left: 170,
-width: 40 * (enemyHP/100),
-height: 40 * (enemyHP/100),
-opacity: enemyHP/100,
+            <Image
+              source={require("@/assets/blackheads.png")}
+              style={{
+                position: "absolute",
+                top: 215,
+                right: 135,
+                width: 45,
+                height: 45,
+                opacity: enemyHP / 100,
+              }} />
+          </>
+        )}
 
-}}/> 
-</>
-)}
-{concerns.includes("Blackheads") && (
-<>
-<Image 
-source={require("@/assets/blackheads.png")}
-style={{
-position: "absolute",
-top: 200,
-right: 157,
-width: 40,
-height: 40,
-opacity: enemyHP/100,
-}}/>
+        {concerns.includes("Wrinkles") && (
+          <>
+            <Image
+              source={require("@/assets/wrinkles.png")}
+              style={{
+                position: "absolute",
+                bottom: 145,
+                left: 215,
+                alignSelf: "center",
+                width: 55,
+                height: 55,
+                opacity: enemyHP / 100,
+              }} />
 
-<Image 
-source={require("@/assets/blackheads.png")}
-style={{
-position: "absolute",
-top: 220,
-right: 177,
-width: 45,
-height: 45,
-opacity: enemyHP/100,
-}}/>
+            <Image
+              source={require("@/assets/wrinkles2.png")}
+              style={{
+                position: "absolute",
+                bottom: 145,
+                right: 215,
+                alignSelf: "center",
+                width: 55,
+                height: 55,
+                opacity: enemyHP / 100,
+              }} />
+          </>
+        )}
 
-<Image
-source={require("@/assets/blackheads.png")} 
-style={{
-position: "absolute",
-top: 215,
-right: 135,
-width: 45,
-height: 45,
-opacity: enemyHP/100,
-}}/>
-</>
-)}
+        {concerns.includes("Redness") && (
+          <>
+            <Image
+              source={require("@/assets/redness.png")}
+              style={{
+                position: "absolute",
+                bottom: 85,
+                left: 65,
+                width: 90,
+                height: 90,
+                opacity: enemyHP / 100,
+              }} />
+            <Image
+              source={require("@/assets/redness.png")}
+              style={{
+                position: "absolute",
+                bottom: 85,
+                right: 85,
+                width: 90,
+                height: 90,
+                opacity: enemyHP / 100,
+              }} />
+          </>
+        )}
 
-{concerns.includes("Wrinkles") && (
-<>
-<Image 
-source={require("@/assets/wrinkles.png")} 
-style={{
-position: "absolute",
-bottom: 145,
-left: 215,
-alignSelf: "center",
-width: 55,
-height:55,
-opacity: enemyHP/100,
+        {concerns.includes("Eye Bags") && (
+          <>
+            <Image
+              source={require("@/assets/eyebags.png")}
+              style={{
+                position: "absolute",
+                left: 90,
+                top: 205,
+                width: 65,
+                height: 65,
+                opacity: enemyHP / 100,
+              }} />
+            <Image
+              source={require("@/assets/eyebags.png")}
+              style={{
+                position: "absolute",
+                right: 100,
+                top: 200,
+                width: 65,
+                height: 65,
+                opacity: enemyHP / 100,
+              }} />
+          </>
+        )}
 
-}}/>
+        {concerns.includes("Oiliness") && (
+          <>
+            <Image
+              source={require("@/assets/oil.png")}
+              style={{
+                position: "absolute",
+                left: 95,
+                top: 95,
+                width: 80,
+                height: 80,
+                opacity: enemyHP / 100,
+              }} />
+            <Image
+              source={require("@/assets/oil.png")}
+              style={{
+                position: "absolute",
+                right: 95,
+                top: 95,
+                width: 80,
+                height: 80,
+                opacity: enemyHP / 100,
+              }} />
+          </>
+        )}
 
-<Image 
-source={require("@/assets/wrinkles2.png")} 
-style={{
-position: "absolute",
-bottom: 145,
-right: 215,
-alignSelf: "center",
-width: 55,
-height:55,
-opacity: enemyHP/100,
-}}/>
-</>
-)}
+        {/* Cosmetics - positioned relative to the face so they move with it */}
+        {purchased.includes("baseball hat") && (
+          <Image
+            source={require("@/assets/bbhat.png")}
+            style={{ position: "absolute", top: -100, left: -55, width: 400, height: 400 }}
+          />
+        )}
+        {purchased.includes("spikey hair") && (
+          <Image
+            source={require("@/assets/shair.png")}
+            style={{ position: "absolute", top: 9, left: 34, width: 400, height: 400 }}
+          />
+        )}
+        {purchased.includes("ear piercings") && (
+          <Image
+            source={require("@/assets/earp.png")}
+            style={{ position: "absolute", top: 59, left: 32, width: 400, height: 400 }}
+          />
+        )}
+      </View>
 
-{concerns.includes("Redness")  && (
-<>
-<Image 
-source={require("@/assets/redness.png")} 
-style={{
-position: "absolute",
-bottom: 85,
-left: 65,
-width: 90,
-height: 90,
-opacity: enemyHP/100,
-}}/>
-<Image
-source={require("@/assets/redness.png")} 
-style={{
-position: "absolute",
-bottom: 85,
-right: 85,
-width: 90,
-height: 90,
-opacity: enemyHP/100,
-}}/>
-</>
-)}
+      <View style={{ flexDirection: "row" }}>
+        {Array.from({ length: totalHearts }).map((_, index) => (
+          <Image
+            key={index}
+            source={index < fullHearts ? require("@/assets/heart.png") : require("@/assets/emptyheart.png")}
+            style={{ width: 75, height: 95 }}
+          />
+        ))}
+      </View>
 
-{concerns.includes("Eye Bags") && (
-<>
-<Image 
-source={require("@/assets/eyebags.png")}
-style={{
-position: "absolute",
-left: 90,
-top: 205,
-width: 65,
-height: 65,
-opacity: enemyHP/100,
-}}/>
-<Image
-source={require("@/assets/eyebags.png")}
-style={{
-position: "absolute",
-right: 100,
-top: 200,
-width: 65,
-height: 65,
-opacity: enemyHP/100,
-}}/>
-</>
-)}
-
-{concerns.includes("Oiliness") &&(
-<>
-<Image
-source={require("@/assets/oil.png")} 
-style={{
-position:"absolute",
-left: 95,
-top: 95,
-width:80,
-height: 80,
-opacity: enemyHP/100,
-
-}}/>
-<Image 
-source={require("@/assets/oil.png")} 
-style={{
-position:"absolute",
-right: 95,
-top: 95,
-width:80,
-height: 80,
-opacity: enemyHP/100,
-
-}}/>
-</>
-)}
-</View>
-
-<View style={{ flexDirection: "row",  }}>
-  {Array.from({ length: totalHearts }).map((_, index) => (
-    <Image
-      key={index}
-      source={index < fullHearts ? require("@/assets/heart.png") : require("@/assets/emptyheart.png")}
-      style={{ width: 75, height: 95 }}
-    />
-  ))}
-</View>
-      
       {enemyHP <= 0 && (
-
-        <Text style ={{
+        <Text style={{
           position: "absolute",
-          top : 65,
+          top: 65,
           fontWeight: "bold",
           fontSize: 45,
           color: "gold",
-
-        }}>Defeated Stage {stage +1}!</Text>
+        }}>Defeated Stage {stage + 1}!</Text>
       )}
+
       {concerns.map((name, index) => (
         <Text key={index} style={{ fontSize: 20, color: "#a00606", padding: 10, fontWeight: "bold" }}>
           {name}
@@ -311,155 +320,125 @@ opacity: enemyHP/100,
       ))}
 
       <TouchableOpacity
-  style={{ backgroundColor: "#107429", padding: 15, borderRadius: 27, marginTop: 20 }}
-  onPress={async () => {
-    
-    router.push({
-      pathname: "./dailylog",
-      params: { 
-        concerns: String(params.concerns) ,
-        streak : String(streak),
-        currentHP : String(enemyHP),
-        stage: String(stage),
-        coin: String(coin),
-        purchased: String(purchased || "")
-      }
-  })}}
->
-  <Text style={{ fontSize: 24, color: "#8fff26", fontWeight:
-    "bold"
-   }}>Log Today's Routine</Text>
-</TouchableOpacity>
-    
-    
- <Text style={{
-position: "absolute",
-bottom: 55, 
- fontSize: 20,
-  color: "gold",
-  fontWeight: "bold"
- }}>Streak: {streak}</Text> 
+        style={{ backgroundColor: "#107429", padding: 15, borderRadius: 27, marginTop: 20 }}
+        onPress={async () => {
+          router.push({
+            pathname: "./dailylog",
+            params: {
+              concerns: String(params.concerns),
+              streak: String(streak),
+              currentHP: String(enemyHP),
+              stage: String(stage),
+              coin: String(coin),
+              purchased: String(purchased || "")
+            }
+          })
+        }}
+      >
+        <Text style={{ fontSize: 24, color: "#8fff26", fontWeight: "bold" }}>Log Today's Routine</Text>
+      </TouchableOpacity>
 
-   
-{enemyHP <=0 && (   
-<TouchableOpacity style={{
-backgroundColor: "#fdc200", 
-padding: 15,
-borderRadius: 27, 
-position : "absolute", 
-bottom : 100
-   
-}}
-onPress={() => router.push({
-  
-  pathname: "./facemodel",
-      params: { 
-        concerns: String(params.concerns) ,
-        streak : String(streak),
-        stage: String(Number(stage) +1),
-        coin :String(coin),
-        purchased: String(purchased || "")
-      }
 
-}
-)}
+      <Text style={{
+        position: "absolute",
+        bottom: 55,
+        fontSize: 20,
+        color: "gold",
+        fontWeight: "bold"
+      }}>Streak: {streak}</Text>
 
-><Text style={{
-fontSize: 24,
-color: "#795e06",
-fontWeight: "bold"
 
-}}
->Continue to Stage {stage + 1}!</Text>
-</TouchableOpacity>
-)}
-       <TouchableOpacity onPress={() => router.back()}
-         style={{
-         position: "absolute",
-         right: 340,
-         bottom: 770,
-         backgroundColor: "#ff0000",
-         borderRadius:55,
-         height:65,
-         width:65, 
-         alignItems: "center",
-         justifyContent: "center"
-         }}>
-      
-       <Text style={{
-        
-         color: "#6e1a1a",
-         fontWeight: "bold"
-       }}>Back</Text>
-       </TouchableOpacity>
+      {enemyHP <= 0 && (
+        <TouchableOpacity style={{
+          backgroundColor: "#fdc200",
+          padding: 15,
+          borderRadius: 27,
+          position: "absolute",
+          bottom: 100
+        }}
+          onPress={() => router.push({
+            pathname: "./facemodel",
+            params: {
+              concerns: String(params.concerns),
+              streak: String(streak),
+              stage: String(Number(stage) + 1),
+              coin: String(coin),
+              purchased: String(purchased || "")
+            }
+          })}
+        >
+          <Text style={{
+            fontSize: 24,
+            color: "#795e06",
+            fontWeight: "bold"
+          }}>Continue to Stage {stage + 1}!</Text>
+        </TouchableOpacity>
+      )}
+
+      <TouchableOpacity onPress={() => router.back()}
+        style={{
+          position: "absolute",
+          right: 340,
+          bottom: 770,
+          backgroundColor: "#ff0000",
+          borderRadius: 55,
+          height: 65,
+          width: 65,
+          alignItems: "center",
+          justifyContent: "center"
+        }}>
+        <Text style={{
+          color: "#6e1a1a",
+          fontWeight: "bold"
+        }}>Back</Text>
+      </TouchableOpacity>
 
 
       <Image
-    source={require("@/assets/coinpng.png")} style={{ right: -150, top: -650 , width: 90, height: 50}}
-       
-      /> 
-       
-       
-      <Text style={{color: "#ffe431", fontSize: 20, fontWeight: "bold", right: -185, top: -695 }}>
-        {coin} 
+        source={require("@/assets/coinpng.png")} style={{ right: -150, top: -650, width: 90, height: 50 }}
+      />
+
+      <Text style={{ color: "#ffe431", fontSize: 20, fontWeight: "bold", right: -185, top: -695 }}>
+        {coin}
       </Text>
-      <Text style={{ color: "#ff0101", fontSize: 16, fontWeight: "bold", right: -185, top: -695}}>
+      <Text style={{ color: "#ff0101", fontSize: 16, fontWeight: "bold", right: -185, top: -695 }}>
         {multiplier}x
       </Text>
-    
-    <TouchableOpacity onPress={async () => router.push({
-      pathname: "./shop",
-      params: { 
-  coin: String(coin),
-  concerns: concerns.join(","),
-  hp: String(enemyHP),
-  streak: String(streak),
-  stage: String(stage),
-  purchased: String(purchased || "")
-}
-    })}
-    style={{
-      backgroundColor:"#096418",
-      position:"absolute",
-      right: 42,
-      top: 220,
-      width: 50,
-      height: 50,
-      borderRadius: 30,
-      alignItems: "center",
-      justifyContent: "center"
-    }}
-    >
-    <Text style={{color: "#00ff55", fontWeight: "bold"}}>Shop</Text>
-    </TouchableOpacity>
-    
-    
-   {purchased.includes("baseball hat") && (
-  <Image 
-    source={require("@/assets/bbhat.png")}
-    style={{ position: "absolute", top: 180, left: 5, width: 400, height: 400 }}
-  />
-)}
-  {purchased.includes("spikey hair") && (
-  <Image 
-    source={require("@/assets/shair.png")}
-    style={{ position: "absolute", top: 72, left: 55, width: 400, height: 400 }}
-  />
-)}
- {purchased.includes("ear piercings") && (
-  <Image 
-    source={require("@/assets/earp.png")}
-    style={{ position: "absolute", top: 122, left: 53, width: 400, height: 400 }}
-  />
-)}
-    </ImageBackground>
-);
- }
 
- const styles = StyleSheet.create({
-   container: {
-     flex: 1,
-     alignItems: "center",
-     justifyContent: "center",
-   },
-  })
+      <TouchableOpacity onPress={async () => router.push({
+        pathname: "./shop",
+        params: {
+          coin: String(coin),
+          concerns: concerns.join(","),
+          hp: String(enemyHP),
+          streak: String(streak),
+          stage: String(stage),
+          purchased: String(purchased || "")
+        }
+      })}
+        style={{
+          backgroundColor: "#096418",
+          position: "absolute",
+          right: 42,
+          top: 220,
+          width: 50,
+          height: 50,
+          borderRadius: 30,
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+      >
+        <Text style={{ color: "#00ff55", fontWeight: "bold" }}>Shop</Text>
+      </TouchableOpacity>
+
+    </ImageBackground>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+})
